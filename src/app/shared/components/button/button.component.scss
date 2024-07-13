@@ -10,9 +10,20 @@
     color: #fff;
     text-transform: uppercase;
     cursor: pointer;
+    border: none;
 
     &:hover {
         background: #016486;
+    }
+
+    &:focus {
+        background: #014d68;
+        box-shadow: 0 0 0 3px rgba(1, 100, 134, 0.5); 
+    }
+
+    &:active {
+        background: #003c53;
+        transform: scale(0.95);
     }
 
     &__single-icon {
