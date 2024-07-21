@@ -11,8 +11,8 @@
         </span>
       </div>
       <div class="form__control">
-        <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Input text" formControlName="email" required />
+        <label for="registrationEmail">Email</label>
+        <input type="text" id="registrationEmail" placeholder="Input text" formControlName="email" required emailValidator />
         <span *ngIf="email?.invalid && (email?.touched || email?.dirty || submitted)" class="text-danger">
           <ng-container *ngIf="email?.errors?.['required']" id="emailErrorMessage">
             Email is required.
@@ -21,8 +21,8 @@
         </span>
       </div>
       <div class="form__control">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Input text" formControlName="password" required />
+        <label for="registrationPassword">Password</label>
+        <input type="password" id="registrationPassword" placeholder="Input text" formControlName="password" required />
         <span *ngIf="password?.invalid && (password?.touched || password?.dirty || submitted)" id="passwordErrorMessage" class="text-danger">
           <ng-container *ngIf="password?.errors?.['required']">Password is required.</ng-container>
         </span>

@@ -14,7 +14,7 @@ export class RegistrationFormComponent {
   constructor() {
     this.registrationForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      email: new FormControl('', [Validators.required, emailValidator()]),
+      email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
     });
     this.submitted = false;

@@ -35,7 +35,7 @@
           <div class="duration-wrapper">
             <input type="number" id="duration" placeholder="Input duration" formControlName="duration" required />
             <div class="course__duration">
-              {{ duration?.value | formatHours }}
+              {{ duration?.value | duration }}
             </div>
           </div>
           <span *ngIf="duration?.invalid && (duration?.touched || duration?.dirty || submitted)" id="durationErrorMessage" class="text-danger">

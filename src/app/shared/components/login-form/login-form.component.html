@@ -7,17 +7,17 @@
           <label for="email">Email</label>
           <!--Use the name `email` for the form control.-->
           <input type="text" id="email" placeholder="Input text" required [(ngModel)]="email" #emailModel="ngModel" emailValidator [ngModelOptions]="{standalone: true}"/>
-          <span *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched || submitted)" id="emailErrorMessage" class="text-danger">
-            <ng-container *ngIf="emailModel.errors?.['required']">Email is required.</ng-container>
-            <ng-container *ngIf="emailModel.errors?.['invalidEmail']">Invalid email format.</ng-container>
+          <span *ngIf="emailModel?.invalid && (emailModel?.dirty || emailModel?.touched || submitted)" id="emailErrorMessage" class="text-danger">
+            <ng-container *ngIf="emailModel?.errors?.['required']">Email is required.</ng-container>
+            <ng-container *ngIf="emailModel?.errors?.['invalidEmail']">Invalid email format.</ng-container>
           </span>
         </div>
         <div class="form__control">
           <label for="password">Password</label>
           <!--Use the name `password` for the form control.-->
           <input type="password" id="password" placeholder="Input text" required [(ngModel)]="password" #passwordModel="ngModel" [ngModelOptions]="{standalone: true}"/>
-          <span *ngIf="passwordModel.invalid && (passwordModel.touched || passwordModel.dirty || submitted)" id="passwordErrorMessage" class="text-danger">
-            <ng-container *ngIf="passwordModel.errors?.['required']">Password is required.</ng-container>
+          <span *ngIf="passwordModel?.invalid && (passwordModel?.touched || passwordModel?.dirty || submitted)" id="passwordErrorMessage" class="text-danger">
+            <ng-container *ngIf="passwordModel?.errors?.['required']">Password is required.</ng-container>
           </span>
         </div>
       </div>

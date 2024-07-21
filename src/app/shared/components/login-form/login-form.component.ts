@@ -14,5 +14,9 @@ export class LoginFormComponent {
 
   onSubmit() {
     this.submitted = true;
+
+    if (this.loginForm) {
+      this.loginForm.form.markAllAsTouched();
+    }
   }
 }
