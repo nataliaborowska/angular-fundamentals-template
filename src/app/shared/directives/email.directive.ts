@@ -8,7 +8,7 @@ import { emailValidator } from '@app/shared/validators/custom-validators';
         provide: NG_VALIDATORS,
         useExisting: EmailValidatorDirective,
         multi: true,
-    }]
+    }],
 })
 export class EmailValidatorDirective implements Validator {
     validate(control: AbstractControl): ValidationErrors | null {

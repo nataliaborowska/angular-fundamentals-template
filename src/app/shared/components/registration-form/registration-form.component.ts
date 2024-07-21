@@ -35,6 +35,8 @@ export class RegistrationFormComponent {
   onSubmit(): void {
     this.submitted = true;
 
-    console.log(this.registrationForm, this.submitted)
+    if (this.registrationForm) {
+      this.registrationForm.markAllAsTouched();
+    }
   }
 }
