@@ -7,6 +7,11 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    flex-wrap: wrap;
+
+    & label {
+      width: 100%;
+    }
 
     & input {
       flex: 1;
@@ -22,16 +27,57 @@
   }
 
   &__authors {
-    margin-top: 8px;
-    display: flex;
-
+    margin-left: 20px;
     &-item {
       margin-right: 10px;
     }
+  }
+
+  &__authors-wrapper {
+    display: flex;
+    justify-content: space-between;
   }
 
   &__icon {
     margin-left: 4px;
     cursor: pointer;
   }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.duration-wrapper {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.authors-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  &__item {
+    display: flex;
+  }
+
+  &__move {
+    background: none;
+    border: none;;
+    cursor: pointer;
+    outline: none;
+    padding: 5px;
+    margin: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.text-danger {
+  width: 100%;
 }

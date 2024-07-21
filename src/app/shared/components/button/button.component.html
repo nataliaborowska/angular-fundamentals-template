@@ -1,4 +1,4 @@
-<button class="app-button">
-  <fa-icon [icon]="['fas', 'computer-mouse']"></fa-icon>
+<button class="app-button" (click)="onClick()" [attr.type]="type" [disabled]="isDisabled" [ngClass]="{'icon-btn': iconBtn}">
+  <fa-icon *ngIf="iconName" [icon]="['fas', iconName]" ></fa-icon>
   {{buttonText}}
 </button>
