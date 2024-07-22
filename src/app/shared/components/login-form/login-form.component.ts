@@ -10,7 +10,7 @@ export class LoginFormComponent {
   @ViewChild('loginForm') public loginForm!: NgForm;
   email: string = '';
   password: string = '';
-  submitted: boolean = false;
+  submitted: boolean= false;
 
   onSubmit() {
     this.submitted = true;

@@ -21,7 +21,7 @@
       </div>
       <div>
         <div class="form__action">
-          <app-button buttonText="login" type="submit"></app-button>
+          <app-button buttonText="login" type="submit" [isDisabled]="!loginForm.valid || !emailModel.valid || !passwordModel.valid"></app-button>
         </div>
         <div class="form__text">
           If you don't have an account you may <strong>Registration</strong>

@@ -22,7 +22,7 @@ export class CourseFormComponent {
     this.courseForm = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.minLength(2)]),
       description: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      newAuthor: new FormControl('', [Validators.minLength(2), lattinLettersAndNumbersValidator()]),
+      author: new FormControl('', [Validators.minLength(2), lattinLettersAndNumbersValidator()]),
       duration: new FormControl('', [Validators.required, Validators.min(0)]),
       authors: new FormArray([]),
       courseAuthors: new FormArray([]),
@@ -30,8 +30,8 @@ export class CourseFormComponent {
     this.submitted = false;
   }
 
-  get newAuthor() {
-    return this.courseForm.get('newAuthor');
+  get author() {
+    return this.courseForm.get('author');
   }
 
   get title() {
@@ -63,19 +63,35 @@ export class CourseFormComponent {
   }
 
   isCreateAuthorDisabled(): boolean {
-    const authorName = this.newAuthor?.value;
-    return !authorName;
+    const authorName = this.author?.value;
+    const isAuthorInvalid = this.author?.invalid ?? true;
+    return !authorName || isAuthorInvalid;
+  }
+
+  isSubmitBtnDisabled(): boolean {
+    const isTitleInvalid = this.title?.invalid ?? true;
+    const isDescriptionInvalid = this.description?.invalid ?? true;
+    const isDurationInvalid = this.duration?.invalid ?? true;
+    return isTitleInvalid || isDescriptionInvalid || isDurationInvalid;
+  }
+
+  isResetBtnDisabled(): boolean {
+    const title = this.title?.value || '';
+    const description = this.description?.value || '';
+    const duration = this.duration?.value || '';
+
+    return title.length === 0 && description.length === 0 && duration.length === 0;
   }
 
   onCreateAuthor(): void {
-    const authorName = this.newAuthor?.value;
+    const authorName = this.author?.value;
 
     if (authorName) {
       this.authors.push(new FormControl({
         name: authorName,
         id: this.nextId++,
       }));
-      this.newAuthor?.reset();
+      this.author?.reset();
     }
   }
 

@@ -32,6 +32,13 @@ export class RegistrationFormComponent {
     return this.registrationForm.get('password');
   }
 
+  isSubmitBtnDisabled(): boolean {
+    const isTitleInvalid = this.name?.invalid ?? true;
+    const isDescriptionInvalid = this.email?.invalid ?? true;
+    const isDurationInvalid = this.password?.invalid ?? true;
+    return isTitleInvalid || isDescriptionInvalid || isDurationInvalid;
+  }
+
   onSubmit(): void {
     this.submitted = true;
 

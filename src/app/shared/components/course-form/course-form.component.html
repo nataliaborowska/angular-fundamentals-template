@@ -48,12 +48,12 @@
         <div class="course__author-field">
           <div class="course__flex">
             <label for="author">Author name</label>
-            <input type="text" id="author" placeholder="Input Author Name" formControlName="newAuthor"/>
-            <app-button id="createAuthor" buttonText="create author" (buttonClick)="onCreateAuthor()"></app-button>
+            <input type="text" id="author" placeholder="Input Author Name" formControlName="author"/>
+            <app-button id="createAuthor" buttonText="create author" (buttonClick)="onCreateAuthor()" [isDisabled]="isCreateAuthorDisabled()"></app-button>
           </div>
-          <span *ngIf="newAuthor?.invalid && (newAuthor?.touched || newAuthor?.dirty || submitted)" id="authorErrorMessage" class="text-danger">
-            <ng-container *ngIf="newAuthor?.errors?.['minlength']">New author must be at least 2 characters long.</ng-container>
-            <ng-container *ngIf="newAuthor?.errors?.['invalidCharacters']">New author should contain only latin letters and numbers.</ng-container>
+          <span *ngIf="author?.invalid && (author?.touched || author?.dirty || submitted)" id="authorErrorMessage" class="text-danger">
+            <ng-container *ngIf="author?.errors?.['minlength']">New author must be at least 2 characters long.</ng-container>
+            <ng-container *ngIf="author?.errors?.['invalidCharacters']">New author should contain only latin letters and numbers.</ng-container>
           </span>
           <div class="course__initial-authors">
             <h3>Authors List</h3>
@@ -82,8 +82,8 @@
         </div>
       </div>
       <div class="form__action course__buttons">
-        <app-button buttonText="cancel" (buttonClick)="onResetForm()"></app-button>
-        <app-button type="submit" buttonText="create course"></app-button>
+        <app-button buttonText="cancel" (buttonClick)="onResetForm()" [isDisabled]="isResetBtnDisabled()"></app-button>
+        <app-button type="submit" buttonText="create course" [isDisabled]="isSubmitBtnDisabled()"></app-button>
       </div>
     </div>
   </div>
