@@ -20,10 +20,10 @@ export class CourseFormComponent {
   constructor(public fb: FormBuilder, public library: FaIconLibrary) {
     library.addIconPacks(fas);
     this.courseForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      description: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      author: new FormControl('', [Validators.minLength(2), lattinLettersAndNumbersValidator()]),
-      duration: new FormControl('', [Validators.required, Validators.min(0)]),
+      title: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+      description: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+      author: new FormControl('', Validators.compose([Validators.minLength(2), lattinLettersAndNumbersValidator()])),
+      duration: new FormControl('', Validators.compose([Validators.required, Validators.min(0)])),
       authors: new FormArray([]),
       courseAuthors: new FormArray([]),
     });

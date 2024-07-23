@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="form__action">
-      <app-button buttonText="login" type="submit" [isDisabled]="isSubmitBtnDisabled()"></app-button>
+      <app-button buttonText="login" type="submit" [isDisabled]="!registrationForm.valid"></app-button>
     </div>
     <div class="form__text">
       If you have an account, you may <strong>Login</strong>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { emailValidator } from '@app/shared/validators/custom-validators';
 
 @Component({
   selector: 'app-registration-form',
@@ -13,7 +12,7 @@ export class RegistrationFormComponent {
 
   constructor() {
     this.registrationForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      name: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
     });

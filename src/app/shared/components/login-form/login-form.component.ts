@@ -8,9 +8,12 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginFormComponent {
   @ViewChild('loginForm') public loginForm!: NgForm;
-  email: string = '';
-  password: string = '';
-  submitted: boolean= false;
+  model = {
+    email: '',
+    password: '',
+  }
+
+   submitted: boolean = false;
 
   onSubmit() {
     this.submitted = true;

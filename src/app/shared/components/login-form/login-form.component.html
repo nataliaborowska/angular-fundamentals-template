@@ -5,23 +5,23 @@
       <div>
         <div class="form__control">
           <label for="email">Email</label>
-          <input type="text" id="email" placeholder="Input text" required [(ngModel)]="email" #emailModel="ngModel" emailValidator [ngModelOptions]="{standalone: true}"/>
-          <span *ngIf="emailModel?.invalid && (emailModel?.dirty || emailModel?.touched || submitted)" id="emailErrorMessage" class="text-danger">
-            <ng-container *ngIf="emailModel?.errors?.['required']">Email is required.</ng-container>
-            <ng-container *ngIf="emailModel?.errors?.['invalidEmail']">Invalid email format.</ng-container>
+          <input type="text" id="email" placeholder="Input text" name="email" required [(ngModel)]="model.email" #email="ngModel" emailValidator />
+          <span *ngIf="email?.invalid && (email?.dirty || email?.touched || submitted)" id="emailErrorMessage" class="text-danger">
+            <ng-container *ngIf="email?.errors?.['required']">Email is required.</ng-container>
+            <ng-container *ngIf="email?.errors?.['invalidEmail']">Invalid email format.</ng-container>
           </span>
         </div>
         <div class="form__control">
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Input text" required [(ngModel)]="password" #passwordModel="ngModel" [ngModelOptions]="{standalone: true}"/>
-          <span *ngIf="passwordModel?.invalid && (passwordModel?.touched || passwordModel?.dirty || submitted)" id="passwordErrorMessage" class="text-danger">
-            <ng-container *ngIf="passwordModel?.errors?.['required']">Password is required.</ng-container>
+          <input type="password" id="password" placeholder="Input text" name="password" required [(ngModel)]="model.password" #password="ngModel" />
+          <span *ngIf="password?.invalid && (password?.touched || password?.dirty || submitted)" id="passwordErrorMessage" class="text-danger">
+            <ng-container *ngIf="password?.errors?.['required']">Password is required.</ng-container>
           </span>
         </div>
       </div>
       <div>
         <div class="form__action">
-          <app-button buttonText="login" type="submit" [isDisabled]="!loginForm.valid || !emailModel.valid || !passwordModel.valid"></app-button>
+          <app-button buttonText="login" type="submit" [isDisabled]="!loginForm.valid"></app-button>
         </div>
         <div class="form__text">
           If you don't have an account you may <strong>Registration</strong>
