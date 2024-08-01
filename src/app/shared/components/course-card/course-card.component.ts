@@ -1,12 +1,5 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-
-interface Course {
-  title: string;
-  description: string;
-  creationDate: Date;
-  duration: number;
-  authors: string[];
-}
+import { Course } from '../../../services/courses.service';
 
 @Component({
   selector: 'app-course-card',
@@ -18,11 +11,12 @@ export class CourseCardComponent {
   @Input() course: Course = {
     title: '',
     description: '',
-    creationDate: new Date(),
+    creationDate: '',
     duration: 0,
     authors: [],
+    id: '',
   };
-  @Output() clickOnShow = new EventEmitter();
+  @Output() clickOnShow = new EventEmitter<Course>();
 
   onShow() {
     this.clickOnShow.emit(this.course);

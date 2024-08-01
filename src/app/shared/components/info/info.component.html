@@ -1,4 +1,7 @@
 <div class="app-info">
   <div class="app-info__header">{{ title }}</div>
-  <div class="app-info__title"><ng-content></ng-content></div>
+  <div class="app-info__title">
+    {{ text }}
+    <ng-content></ng-content>
+  </div>
 </div>

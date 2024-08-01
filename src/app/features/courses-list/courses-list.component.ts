@@ -1,12 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
-interface Course {
-  title: string;
-  description: string;
-  creationDate: Date;
-  duration: number;
-  authors: string[];
-}
+import { Course } from '../../services/courses.service';
 
 @Component({
   selector: 'app-courses-list',
@@ -16,9 +9,9 @@ interface Course {
 export class CoursesListComponent {
   @Input() courses: Course[] = [];
   @Input() editable: boolean = true;
-  @Output() showCourse = new EventEmitter();
-  @Output() editCourse = new EventEmitter();
-  @Output() deleteCourse = new EventEmitter();
+  @Output() showCourse = new EventEmitter<Course>();
+  @Output() editCourse = new EventEmitter<Course>();
+  @Output() deleteCourse = new EventEmitter<Course>();
 
   onShow(course: Course) {
     this.showCourse.emit(course);

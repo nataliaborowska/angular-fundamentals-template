@@ -32,7 +32,7 @@
       <app-button buttonText="login" type="submit" [isDisabled]="!registrationForm.valid"></app-button>
     </div>
     <div class="form__text">
-      If you have an account, you may <strong>Login</strong>
+      If you have an account, you may <a [routerLink]="['/login']"><strong>Login</strong></a>
     </div>
   </form>
 </div>

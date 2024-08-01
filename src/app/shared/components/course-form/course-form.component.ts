@@ -5,19 +5,32 @@ import {
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { lattinLettersAndNumbersValidator } from '@app/shared/validators/custom-validators';
+import { CoursesStoreService } from '@app/services/courses-store.service';
+import { Course } from '@app/services/courses.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OnInit } from '@angular/core';
+import { CoursesService } from '@app/services/courses.service';
 
 @Component({
   selector: 'app-course-form',
   templateUrl: './course-form.component.html',
   styleUrls: ['./course-form.component.scss'],
 })
-export class CourseFormComponent {
+export class CourseFormComponent implements OnInit {
   courseForm!: FormGroup;
   submitted: boolean;
-
+  isEditingMode: boolean = false;
   private nextId: number = 1;
+  courseId: string | null = null;
 
-  constructor(public fb: FormBuilder, public library: FaIconLibrary) {
+  constructor(
+    public fb: FormBuilder,
+    public library: FaIconLibrary,
+    private coursesStoreService: CoursesStoreService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private coursesService: CoursesService,
+  ) {
     library.addIconPacks(fas);
     this.courseForm = new FormGroup({
       title: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
@@ -28,6 +41,30 @@ export class CourseFormComponent {
       courseAuthors: new FormArray([]),
     });
     this.submitted = false;
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.courseId = params['id'];
+      this.isEditingMode = !!this.courseId;
+
+      if (this.isEditingMode && this.courseId) {
+        this.coursesService.getCourse(this.courseId).subscribe({
+          next: (value: string | Course) => {
+            if (typeof value === 'string') {
+              console.error('Error loading course data:', value);
+            } else {
+              this.populateForm(value);
+            }
+          },
+          error: (error) => console.error('Error loading course data:', error),
+        });
+      }
+    });
+  }
+
+  get submitButtonText(): string {
+    return this.isEditingMode ? 'Update Course' : 'Create Course';
   }
 
   get author() {
@@ -54,11 +91,43 @@ export class CourseFormComponent {
     return this.courseForm.get('courseAuthors') as FormArray;
   }
 
+  populateForm(course: Course) {
+    this.courseForm.patchValue({
+      title: course.title,
+      description: course.description,
+      duration: course.duration,
+    });
+  
+    this.courseAuthors.clear();
+    course.authors.forEach(author => {
+      this.courseAuthors.push(new FormControl({ name: author, id: this.nextId++ }));
+    });
+  }
+
   onSubmit(): void {
     this.submitted = true;
     
     if (!this.courseForm.valid) {
       this.courseForm.markAllAsTouched();
+    } else {
+      const {title, description, duration } = this.courseForm.value;
+      const newCourse: Course = {
+        title,
+        description,
+        duration,
+        authors: this.courseAuthors.value.map((author: { name: string, id: string }) => author.name),
+        creationDate: new Date().toISOString(),
+      };
+      
+      if (this.isEditingMode && this.courseId) {
+        newCourse.id = this.courseId;
+        this.coursesStoreService.editCourse(this.courseId, newCourse);
+      } else {
+        newCourse.id = '';
+        this.coursesStoreService.createCourse(newCourse);
+      }
+      
+      this.onResetForm();
     }
   }
 

@@ -1,1 +1,26 @@
-<p>courses works!</p>
+<div *ngIf="isLoading$ | async; else content">
+    <p>Loading...</p>
+  </div>
+  <ng-template #content>
+    <div *ngIf="(courses$ | async)?.length === 0; else courseList">
+      <app-info title="Your list is empty" text="Please use the 'Add new course' button to add your first course">
+        <div *ngIf="isAdmin">
+          <app-button buttonText="Add new course" (click)="onAddCourse()"></app-button>
+        </div>
+      </app-info>
+    </div>
+    
+    <ng-template #courseList>
+      <app-search [placeholder]="'Search for course'" (search)="onSearch($event)"></app-search>
+      <app-courses-list
+        [courses]="(courses$ | async) || []"
+        [editable]="isAdmin"
+        (deleteCourse)="onDeleteCourse($event)"
+        (showCourse)="onShowCourse($event)"
+        (editCourse)="onEditCourse($event)"
+      ></app-courses-list>
+      <div *ngIf="isAdmin">
+        <app-button buttonText="Add new course" (click)="onAddCourse()"></app-button>
+      </div>
+    </ng-template>
+  </ng-template>

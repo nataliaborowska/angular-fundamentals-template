@@ -1,6 +1,6 @@
 <app-header>
-  <span class="info-wrapper__text">Natalia Borowska</span>
-  <app-button buttonText="click me" iconName="computer-mouse"></app-button>
+  <span class="info-wrapper__text">{{ currentUserName }}</span>
+  <app-button [buttonText]="buttonText" iconName="computer-mouse" (buttonClick)="onButtonClick()"></app-button>
 </app-header>
 <div class="app-root">
   <!-- Search component -->
@@ -13,14 +13,15 @@
   <!--<app-course-card></app-course-card>-->
 
   <!-- Login Form component -->
-  <app-login-form></app-login-form>
+  <!-- <app-login-form></app-login-form> -->
 
   <!-- Login Form component -->
-  <app-registration-form></app-registration-form>
+  <!-- <app-registration-form></app-registration-form> -->
 
   <!-- Login Form component -->
-  <app-course-form></app-course-form>
+  <!-- <app-course-form></app-course-form> -->
 
   <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
+   <router-outlet></router-outlet>
 </div>

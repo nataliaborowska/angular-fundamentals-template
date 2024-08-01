@@ -83,7 +83,7 @@
       </div>
       <div class="form__action course__buttons">
         <app-button buttonText="cancel" (buttonClick)="onResetForm()" [isDisabled]="isResetBtnDisabled()"></app-button>
-        <app-button type="submit" buttonText="create course" [isDisabled]="isSubmitBtnDisabled()"></app-button>
+        <app-button type="submit" [buttonText]="submitButtonText" [isDisabled]="isSubmitBtnDisabled()"></app-button>
       </div>
     </div>
   </div>

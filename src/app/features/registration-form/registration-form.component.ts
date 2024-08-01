@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '@app/auth/services/auth.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -10,7 +11,7 @@ export class RegistrationFormComponent {
   registrationForm!: FormGroup;
   submitted: boolean;
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.registrationForm = new FormGroup({
       name: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
       email: new FormControl('', [Validators.required]),
@@ -41,8 +42,12 @@ export class RegistrationFormComponent {
   onSubmit(): void {
     this.submitted = true;
 
-    if (this.registrationForm) {
-      this.registrationForm.markAllAsTouched();
+    if (this.registrationForm.valid) {
+      this.authService.register(this.registrationForm.value);
+    } else {
+      if (this.registrationForm) {
+        this.registrationForm.markAllAsTouched();
+      }
     }
   }
 }

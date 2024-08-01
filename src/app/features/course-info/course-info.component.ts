@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Location } from '@angular/common';
 
 interface CourseInfo {
   title: string;
@@ -15,6 +16,8 @@ interface CourseInfo {
   styleUrls: ['./course-info.component.scss']
 })
 export class CourseInfoComponent {
+  constructor(private location: Location) {}
+
   @Input() course: CourseInfo = {
     title: '',
     description: '',
@@ -23,4 +26,8 @@ export class CourseInfoComponent {
     duration: 0,
     authors: [],
   };
+
+  goBack(): void {
+    this.location.back();
+  }
 }
