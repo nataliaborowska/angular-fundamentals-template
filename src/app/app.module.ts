@@ -10,10 +10,9 @@ import { AuthorizedGuard } from '@app/auth/guards/authorized.guard';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
 import { AppRoutingModule } from './app-routing.module';
-import { WINDOW, windowFactory } from './auth/services/window.token';
+import { WINDOW } from './auth/services/window.token';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
-import { SessionStorageService } from './auth/services/session-storage.service';
 import { AuthModule } from './auth/auth.module';
 
 @NgModule({
@@ -33,12 +32,12 @@ import { AuthModule } from './auth/auth.module';
     NotAuthorizedGuard,
     CoursesService,
     CoursesStoreService,
-    { provide: WINDOW, useFactory: windowFactory },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
-    }
+    },
+    { provide: WINDOW, useValue: window },
   ],
   bootstrap: [AppComponent],
 })
