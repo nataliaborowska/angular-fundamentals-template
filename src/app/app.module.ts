@@ -10,7 +10,7 @@ import { AuthorizedGuard } from '@app/auth/guards/authorized.guard';
 import { CoursesStoreService } from '@app/services/courses-store.service';
 import { CoursesService } from '@app/services/courses.service';
 import { AppRoutingModule } from './app-routing.module';
-import { WINDOW } from './auth/services/window.token';
+// import { WINDOW } from './auth/services/window.token';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { AuthModule } from './auth/auth.module';
@@ -37,7 +37,7 @@ import { AuthModule } from './auth/auth.module';
       useClass: TokenInterceptor,
       multi: true,
     },
-    { provide: WINDOW, useValue: window },
+    // { provide: WINDOW, useValue: window },
   ],
   bootstrap: [AppComponent],
 })
