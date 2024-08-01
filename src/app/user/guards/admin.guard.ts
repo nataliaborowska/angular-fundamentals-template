@@ -14,15 +14,20 @@ interface CanActivate {
 export class AdminGuard implements CanActivate {
     constructor(private userStoreService: UserStoreService, private router: Router) {}
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+        if (!this.userStoreService.isAdmin$) {
+            console.error('isAdmin$ is undefined');
+            return this.router.createUrlTree(['/error']);
+        }
+
         return this.userStoreService.isAdmin$.pipe(
             take(1),
             map(isAdmin => {
-                if(isAdmin) {
+                if (isAdmin) {
                     return true;
                 } else {
                     return this.router.createUrlTree(['/courses']);
                 }
             })
-        )
+        );
     }
 }

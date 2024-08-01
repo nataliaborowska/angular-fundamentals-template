@@ -14,6 +14,7 @@ import { WINDOW, windowFactory } from './auth/services/window.token';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { SessionStorageService } from './auth/services/session-storage.service';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent, CourseInfoComponent],
@@ -25,6 +26,7 @@ import { SessionStorageService } from './auth/services/session-storage.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AuthModule,
   ],
   providers: [
     AuthorizedGuard,
@@ -32,7 +34,6 @@ import { SessionStorageService } from './auth/services/session-storage.service';
     CoursesService,
     CoursesStoreService,
     { provide: WINDOW, useFactory: windowFactory },
-    SessionStorageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -16,7 +16,9 @@ export class UserStoreService {
     name$: Observable<string> = this.name$$.asObservable();
     isAdmin$: Observable<boolean> = this.isAdmin$$.asObservable();
 
-    constructor(private userService: UserService) {};
+    constructor(private userService: UserService) {
+        this.getUser();
+    };
 
     getUser() {
         this.userService.getUser()
