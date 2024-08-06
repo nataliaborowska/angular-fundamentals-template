@@ -87,14 +87,14 @@ export class CoursesStoreService {
         this.coursesService.editCourse(id, course).pipe(
             finalize(() => this.isLoading$$.next(false))
         ).subscribe({
-            next: (result: boolean) => {
-                if (!result) {
-                    console.error('Error editing course: ', result)
+            next: (result: Course | string) => {
+                if (typeof result === 'string') {
+                    console.error('Error fetching course: ', result)
                 } else {
                     const courses = this.courses$$.getValue();
                     const index = courses.findIndex(c => c.id === id);
                     if (index !== -1) {
-                        courses[index] = course;
+                        courses[index] = result;
                         this.courses$$.next(courses);
                         this.router.navigate(['/courses', id]);
                     }

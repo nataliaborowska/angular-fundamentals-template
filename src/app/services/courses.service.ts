@@ -23,7 +23,9 @@ interface CourseGetResp extends BaseResp{
     result: Course | string;
 }
 
-interface CourseOperationResp extends BaseResp {}
+interface CourseOperationResp extends BaseResp {
+    result: Course | string;
+}
 
 interface CourseCreateResp extends BaseResp {
     result: Course | string;
@@ -75,10 +77,16 @@ export class CoursesService {
         )
     }
 
-    editCourse(id: string, course: Course): Observable<boolean>  {
+    editCourse(id: string, course: Course): Observable<Course | string>  {
         return this.httpClient.put<CourseOperationResp>(`${this.getLoginUrl()}/courses/${id}`, { ...course }).pipe(
-            map((resp: CourseOperationResp) => resp.successful),
-            catchError(this.handleError<boolean>('editCourse', false))
+            map((resp: CourseOperationResp) => {
+                if (resp.successful && typeof resp.result !== 'string') {
+                    return resp.result;
+                } else {
+                    return typeof resp.result === 'string' ? resp.result : 'An unknown error occurred';
+                }
+            }),
+            catchError(this.handleError<Course | string>('editCourse', 'An unknown error occurred'))
         )
     }
 

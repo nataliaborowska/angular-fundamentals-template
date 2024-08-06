@@ -5,11 +5,11 @@ import {
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { lattinLettersAndNumbersValidator } from '@app/shared/validators/custom-validators';
-import { CoursesStoreService } from '@app/services/courses-store.service';
 import { Course } from '@app/services/courses.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { CoursesService } from '@app/services/courses.service';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
 
 @Component({
   selector: 'app-course-form',
@@ -26,7 +26,7 @@ export class CourseFormComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public library: FaIconLibrary,
-    private coursesStoreService: CoursesStoreService,
+    private coursesStoreService: CoursesStateFacade,
     private route: ActivatedRoute,
     private router: Router,
     private coursesService: CoursesService,
@@ -121,7 +121,7 @@ export class CourseFormComponent implements OnInit {
       
       if (this.isEditingMode && this.courseId) {
         newCourse.id = this.courseId;
-        this.coursesStoreService.editCourse(this.courseId, newCourse);
+        this.coursesStoreService.editCourse(newCourse, this.courseId);
       } else {
         newCourse.id = '';
         this.coursesStoreService.createCourse(newCourse);

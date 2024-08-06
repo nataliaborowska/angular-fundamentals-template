@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CoursesStoreService } from '../../services/courses-store.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { Observable } from 'rxjs';
 import { Course } from '../../services/courses.service';
 import { Router } from '@angular/router';
 import { UserStoreService } from '@app/user/services/user-store.service';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
 
 @Component({
   selector: 'app-courses',
@@ -18,16 +18,16 @@ export class CoursesComponent implements OnInit {
   isAdmin: boolean = false;
 
   constructor(
-    private coursesStoreService: CoursesStoreService,
     private authService: AuthService,
     private router: Router,
     private userStoreService: UserStoreService,
+    private coursesStoreService: CoursesStateFacade,
   ) {}
 
   ngOnInit(): void {
-    this.coursesStoreService.getAll();
-    this.courses$ = this.coursesStoreService.courses$;
-    this.isLoading$ = this.coursesStoreService.isLoading$;
+    this.coursesStoreService.getAllCourses();
+    this.courses$ = this.coursesStoreService.allCourses$;
+    this.isLoading$ = this.coursesStoreService.isAllCoursesLoading$;
     this.authService.isAuthorized$.subscribe(isAuthorized => {
       this.isAuthorized = isAuthorized;
     });
@@ -55,6 +55,6 @@ export class CoursesComponent implements OnInit {
   }
 
   onSearch(searchTerm: string): void {
-    this.coursesStoreService.filterCourses(searchTerm);
+    this.coursesStoreService.getFilteredCourses(searchTerm);
   }
 }
